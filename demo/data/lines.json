@@ -1,0 +1,67 @@
+{
+  "apiVersion": "",
+  "data": [
+    {
+      "idLine": 1,
+      "product": {
+        "id": 2,
+        "price": 2.0,
+        "name": "Coca cola"
+      },
+      "qty": 1,
+      "grossAmount": 2.0,
+      "actions": {
+        "addQty": true,
+        "removeQty": true,
+        "delete": true
+      },
+      "obs": "prueba"
+    },
+    {
+      "idLine": 2,
+      "product": {
+        "id": 11,
+        "price": 1.6,
+        "name": "Fanta limón"
+      },
+      "qty": 2,
+      "grossAmount": 3.2,
+      "actions": {
+        "addQty": true,
+        "removeQty": true,
+        "delete": true
+      }
+    },
+    {
+      "idLine": 3,
+      "product": {
+        "id": 12,
+        "price": 1.6,
+        "name": "Fanta naranja de prueba para ver si cabe de largo"
+      },
+      "qty": 1,
+      "grossAmount": 1.6,
+      "actions": {
+        "addQty": true,
+        "removeQty": true,
+        "delete": true
+      }
+    },
+    {
+      "idLine": 3,
+      "product": {
+        "id": 14,
+        "price": 0.9,
+        "name": "Café solo"
+      },
+      "qty": 1,
+      "grossAmount": 1.6,
+      "actions": {
+        "addQty": true,
+        "removeQty": true,
+        "delete": true
+      }
+    }
+  ],
+  "error": null
+}
