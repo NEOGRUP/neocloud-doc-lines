@@ -1,0 +1,130 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
+<script>
+  /**
+   * @polymerBehavior
+   */
+  neocloudDocLinesBehavior  = {
+
+    properties: {
+      language: {
+        type: String,
+        observer: '_languageChanged',
+      }
+    },
+    _validate: function(){
+      var inputs = Polymer.dom(this.root).querySelectorAll("paper-input,paper-textarea");
+      var firstInvalid = false;
+      var i;
+      for (i = 0; i < inputs.length; i++) {
+        inputs[i].validate();
+      }
+      for (i = 0; i < inputs.length; i++) {
+        if (!firstInvalid && inputs[i].invalid===true) {
+          inputs[i].focus();
+          firstInvalid = true;
+        }
+      }
+      return !firstInvalid;
+    },
+
+    _languageChanged: function(){
+      if (typeof(moment)!="undefined") {
+        moment.locale(this.language);
+      }
+    },
+
+    _getTodayDate: function(){
+      return moment().format('YYYY-MM-DDTHH:mm:ss')
+    },
+
+    _getYeterdayDate: function(){
+      return moment().add(-1,'days').format('YYYY-MM-DD');
+    },
+
+    _formatDate: function(date, language, format) {
+      var format = (format)? format: "L";
+
+      var dateText = "";
+      if (date) {
+        dateText = moment(date).format(format);
+      }
+      return dateText;
+    },
+
+    _formatDateFromNow: function(dateTime, language) {
+
+      var dateTimeText = "";
+      if (dateTime) {
+        if (language == "es"){
+          dateTimeText= moment(dateTime).calendar(null, {
+            lastDay : '[ayer]',
+            sameDay : '[hoy]',
+            nextDay : '[mañana]',
+            lastWeek : 'dddd [pasado]',
+            nextWeek : 'dddd',
+            sameElse : 'L'
+          });
+        }
+        else if (language == "ca"){
+          dateTimeText= moment(dateTime).calendar(null, {
+            lastDay : '[ahir]',
+            sameDay : '[avui]',
+            nextDay : '[demà]',
+            lastWeek : 'dddd [passat]',
+            nextWeek : 'dddd',
+            sameElse : 'L'
+          });
+        }
+        else{
+          dateTimeText= moment(dateTime).calendar(null, {
+            lastDay : '[yesterday]',
+            sameDay : '[today]',
+            nextDay : '[tomorrow]',
+            lastWeek : '[last] dddd',
+            nextWeek : 'dddd',
+            sameElse : 'L'
+          });
+        }
+
+//        dateTimeText = moment(dateTime).calendar().split(" ")[0];
+//        dateTimeText = moment(dateTime).calendar();
+//        dateTimeText = moment(dateTime).format('dddd, ll')
+      }
+      return dateTimeText;
+    },
+
+    _formatDateTimeFromNow: function(dateTime, language) {
+//      console.log(moment('2017-03-17T11:27:01Z').format("DD-MM-YYYY HH:mm"));
+//      console.log(moment('2017-03-17T11:27:01+02:00').format("DD-MM-YYYY HH:mm"));
+//      console.log(moment('2017-03-17T11:27:01.343+02:00').format("DD-MM-YYYY HH:mm"));
+//      dateTime = moment('2017-03-17T11:27:01Z');
+
+      var dateTimeText = "";
+      if (dateTime) {
+        dateTimeText = moment(dateTime).calendar();
+      }
+      return dateTimeText;
+    },
+
+    _formatTime: function(time) {
+      var timeText = "";
+      if (time) {
+        timeText = moment(time).format("HH:mm[h]");
+      }
+      return timeText;
+    },
+
+    _formatPrice: function(price) {
+      var priceText = ""
+      priceText = accounting.formatMoney(price, "€", 2, ".", ",","%v %s");
+      return priceText;
+    },
+
+    _formatNumber: function(number, decimals) {
+      var numberText = "";
+      numberText = accounting.formatNumber(number,decimals, ".", ",")
+      return numberText;
+    }
+  };
+</script>
