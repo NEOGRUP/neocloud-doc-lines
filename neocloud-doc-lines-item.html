@@ -9,6 +9,8 @@ Copyright (c) 2017 Neo
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 
+<link rel="import" href="neocloud-doc-lines-behaviour.html">
+
 
 <dom-module id="neocloud-doc-lines-item">
   <template>
@@ -35,10 +37,11 @@ Copyright (c) 2017 Neo
       }
 
       .itemContentQty {
-        width: 40px;
-        padding-right: 5px;
+        width: 30px;
+        padding-right: 10px;
         text-align: right;
-        border-right: 1px solid #BDBDBD;
+        /*border-right: 1px solid #BDBDBD;*/
+        font-size: 14px;
       }
 
       .itemContentText{
@@ -46,8 +49,8 @@ Copyright (c) 2017 Neo
       }
 
       .itemContentName {
-        padding-left: 5px;
-        border-right: 1px solid #BDBDBD;
+        padding-left: 10px;
+        /*border-right: 1px solid #BDBDBD;*/
       }
 
       .itemContentObs {
@@ -57,8 +60,7 @@ Copyright (c) 2017 Neo
       }
 
       .itemContentPrice {
-        width: 50px;
-        padding-right: 5px;
+        width: 70px;
         text-align: right;
       }
 
@@ -72,8 +74,6 @@ Copyright (c) 2017 Neo
       .itemContentActions {
         width: 40px;
       }
-
-
     </style>
 
     <div class="itemContent">
@@ -82,8 +82,7 @@ Copyright (c) 2017 Neo
         <div class="itemContentName">[[item.product.name]]</div>
         <div class="itemContentObs">[[item.obs]]</div>
       </div>
-      <!--<div class="itemContentPrice">[[item.product.price]]</div>-->
-      <div class="itemContentGrossAmount">[[item.grossAmount]]</div>
+      <div class="itemContentPrice">[[_formatPrice(item.product.price)]]</div>
       <div class="itemContentActions"><paper-icon-button icon="more-vert" on-tap="_showActions"></paper-icon-button></div>
     </div>
   </template>
@@ -93,7 +92,8 @@ Copyright (c) 2017 Neo
       is: 'neocloud-doc-lines-item',
 
       behaviors: [
-        Polymer.AppLocalizeBehavior
+        Polymer.AppLocalizeBehavior,
+        neocloudDocLinesBehavior
       ],
 
       properties: {

@@ -36,29 +36,25 @@ Copyright (c) 2017 Neo
         @apply(--layout-center);
       }
 
-
       paper-dialog > div > paper-button > iron-icon{
         margin: 0 7px;
         width: 36px;
         height: 36px;
         cursor: pointer;
       }
-
     </style>
 
-    <iron-list>
-      <template>
-        <neocloud-doc-lines-item
-                item="[[item]]"
-                on-actions="_showActions"></neocloud-doc-lines-item>
-      </template>
-    </iron-list>
+    <template is="dom-repeat" items="{{lines}}">
+      <neocloud-doc-lines-item
+              item="{{item}}"
+              on-actions="_showActions"></neocloud-doc-lines-item>
+    </template>
 
     <paper-dialog id="actions" no-overlap _horizontal-align="left" vertical-align="top"  _entry-animation="scale-up-animation">
       <div class="actionsButtons">
-        <paper-button on-tap="_addQty" style="color: green"><iron-icon icon="add-circle"></iron-icon></paper-button>
-        <paper-button on-tap="_removeQty" style="color: red"><iron-icon icon="remove-circle"></iron-icon></paper-button>
-        <paper-button on-tap="_delete" style="color: red"><iron-icon icon="delete"></iron-icon></paper-button>
+        <paper-button on-tap="_addQty" style="color: #598900"><iron-icon icon="add-circle"></iron-icon></paper-button>
+        <paper-button on-tap="_removeQty" style="color: #F44336"><iron-icon icon="remove-circle"></iron-icon></paper-button>
+        <paper-button on-tap="_delete" style="color: #F44336"><iron-icon icon="delete"></iron-icon></paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -78,6 +74,15 @@ Copyright (c) 2017 Neo
           value: [],
           observer: '_dataChanged'
         },
+        lines: {
+          type: Array,
+          value: []
+        },
+        item: {
+          type: Object,
+          notify: true,
+          value: {}
+        },
         _currentLine: {
           type: Object,
           value: {}
@@ -88,10 +93,11 @@ Copyright (c) 2017 Neo
       },
 
       _dataChanged: function() {
-//        console.log(this.data)
+        this.set('lines', []);
         if (this.data.length > 0) {
-          this.$$('iron-list').items = this.data;
+          this.set('lines', this.data);
         }
+        Polymer.dom.flush();
       },
 
       _showActions: function(element){
@@ -102,14 +108,21 @@ Copyright (c) 2017 Neo
 
       _addQty: function(){
         this.fire('line-inc', this._currentLine);
+        this._currentLine.qty++;
       },
 
       _removeQty: function(){
         this.fire('line-dec', this._currentLine);
+        this._currentLine.qty--;
+
+        if (this._currentLine.qty == 0) {
+          this.$$('#actions').close();
+        }
       },
 
       _delete: function(){
         this.fire('line-del', this._currentLine);
+        this.$$('#actions').close();
       }
     });
 
