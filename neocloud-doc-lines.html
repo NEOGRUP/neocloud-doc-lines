@@ -108,14 +108,14 @@ Copyright (c) 2017 Neo
 
       _addQty: function(){
         this.fire('line-inc', this._currentLine);
-        this._currentLine.qty++;
+        this._currentLine.format.qty++;
       },
 
       _removeQty: function(){
         this.fire('line-dec', this._currentLine);
-        this._currentLine.qty--;
+        this._currentLine.format.qty--;
 
-        if (this._currentLine.qty == 0) {
+        if (this._currentLine.format.qty == 0) {
           this.$$('#actions').close();
         }
       },
@@ -123,6 +123,14 @@ Copyright (c) 2017 Neo
       _delete: function(){
         this.fire('line-del', this._currentLine);
         this.$$('#actions').close();
+      },
+
+      updateQty: function(item){
+        console.log(item);
+        //sin id = nueva línea
+        //solo un id, línea eliminada
+        //resto = cantidad cambaida
+        //console.log(lines);
       }
     });
 

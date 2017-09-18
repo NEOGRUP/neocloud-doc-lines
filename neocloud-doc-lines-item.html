@@ -44,6 +44,21 @@ Copyright (c) 2017 Neo
         font-size: 14px;
       }
 
+      .itemContentQty:hover {
+        transform: scale(1.2);
+        color: green
+      }
+
+      .itemContentFormat{
+        width: 70px;
+        padding-left: 10px;
+        /*padding-right: 10px;*/
+        /*border-right: 1px solid #BDBDBD;*/
+        font-size: 12px;
+        color: #9E9E9E;
+        font-style: italic;
+      }
+
       .itemContentText{
         @apply(--layout-flex);
       }
@@ -77,12 +92,14 @@ Copyright (c) 2017 Neo
     </style>
 
     <div class="itemContent">
-      <div class="itemContentQty">[[item.qty]]</div>
+      <div class="itemContentQty">[[item.format.qty]]</div>
+      <!--<div class="itemContentFormat">[[item.format.name]]</div>-->
       <div class="itemContentText">
         <div class="itemContentName">[[item.product.name]]</div>
+        <div class="itemContentFormat">[[item.format.name]]</div>
         <div class="itemContentObs">[[item.obs]]</div>
       </div>
-      <div class="itemContentPrice">[[_formatPrice(item.product.price)]]</div>
+      <div class="itemContentPrice">[[_formatPrice(item.grossAmount)]]</div>
       <div class="itemContentActions"><paper-icon-button icon="more-vert" on-tap="_showActions"></paper-icon-button></div>
     </div>
   </template>
