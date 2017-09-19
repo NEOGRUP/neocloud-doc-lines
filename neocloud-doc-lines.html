@@ -29,6 +29,8 @@ Copyright (c) 2017 Neo
       }
 
       paper-dialog{
+        margin:  -5px 20px;
+        padding: 0;
       }
 
       .actionsButtons {
@@ -37,10 +39,13 @@ Copyright (c) 2017 Neo
       }
 
       paper-dialog > div > paper-button > iron-icon{
-        margin: 0 7px;
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
+        width: 28px;
+        height: 28px;
+      }
+
+      paper-button {
+        /*background-color: red;*/
+        width: 30px;
       }
     </style>
 
@@ -54,9 +59,11 @@ Copyright (c) 2017 Neo
       <div class="actionsButtons">
         <paper-button on-tap="_addQty" style="color: #598900"><iron-icon icon="add-circle"></iron-icon></paper-button>
         <paper-button on-tap="_removeQty" style="color: #F44336"><iron-icon icon="remove-circle"></iron-icon></paper-button>
+        <paper-button on-tap="_selectQty"><iron-icon icon="create"></iron-icon></paper-button>
         <paper-button on-tap="_delete" style="color: #F44336"><iron-icon icon="delete"></iron-icon></paper-button>
       </div>
     </paper-dialog>
+
   </template>
 
   <script>
@@ -106,6 +113,8 @@ Copyright (c) 2017 Neo
         this.$$('#actions').open();
       },
 
+
+
       _addQty: function(){
         this.fire('line-inc', this._currentLine);
         this._currentLine.format.qty++;
@@ -120,9 +129,20 @@ Copyright (c) 2017 Neo
         }
       },
 
+      _selectQty: function(){
+        this.fire('openSelectQty', this._currentLine);
+
+      },
+
       _delete: function(){
         this.fire('line-del', this._currentLine);
         this.$$('#actions').close();
+      },
+
+      setQty: function(qty){
+        this.$$('#actions').close();
+        this._currentLine.format.qty = qty;
+        this.fire('line-set', this._currentLine);
       },
 
       updateQty: function(item){
