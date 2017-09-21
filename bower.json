@@ -1,6 +1,6 @@
 {
   "name": "neocloud-doc-lines",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Polymer component to display products lines in document",
   "authors": [
     "edgar.piera@neogrup.com"

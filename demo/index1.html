@@ -34,8 +34,7 @@ Copyright (c) 2017 Neo
   <template>
     <style>
       .container{
-        /*background-color: #EEEEEE;*/
-        /*height: 100px;*/
+        background-color: #EEEEEE;
       }
     </style>
 
@@ -48,9 +47,28 @@ Copyright (c) 2017 Neo
             last-response="{{dataDocLines}}">
     </iron-ajax>
 
+    <iron-ajax
+            auto
+            id="getDocNoLines"
+            url="data/noLines.json"
+            method="get"
+            handle-as="json"
+            last-response="{{dataDocNoLines}}">
+    </iron-ajax>
+
     <div class="container">
       <neocloud-doc-lines
               data="[[dataDocLines.data]]"
+              language="es"
+              on-line-inc="_lineInc"
+              on-line-dec="_lineDec"
+              on-line-del="_lineDel">
+      </neocloud-doc-lines>
+    </div>
+    <br>
+    <div class="container">
+      <neocloud-doc-lines
+              data="[[dataDocNoLines.data]]"
               language="es"
               on-line-inc="_lineInc"
               on-line-dec="_lineDec"
@@ -83,9 +101,5 @@ Copyright (c) 2017 Neo
   </script>
 </dom-module>
 <neocloud-doc-lines-demo></neocloud-doc-lines-demo>
-<script id="__bs_script__">//<![CDATA[
-document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.8'><\/script>".replace("HOST", location.hostname));
-//]]></script>
-
 </body>
 </html>

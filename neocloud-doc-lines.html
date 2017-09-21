@@ -47,12 +47,25 @@ Copyright (c) 2017 Neo
         /*background-color: red;*/
         width: 30px;
       }
+      .noItems{
+        text-align: center;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+      }
     </style>
 
-    <template is="dom-repeat" items="{{lines}}">
+    <template is="dom-repeat" items="{{lines}}" rendered-item-count="{{renderedCount}}">
       <neocloud-doc-lines-item
               item="{{item}}"
               on-actions="_showActions"></neocloud-doc-lines-item>
+    </template>
+    <template is="dom-if" if="{{!renderedCount}}">
+      <p class="noItems">{{localize('DOCS_LINES_NO_ITEMS')}}</p>
     </template>
 
     <paper-dialog id="actions" no-overlap _horizontal-align="left" vertical-align="top"  _entry-animation="scale-up-animation">
@@ -97,6 +110,8 @@ Copyright (c) 2017 Neo
       },
 
       ready: function() {
+        this.useKeyIfMissing = true;
+        this.loadResources(this.resolveUrl('/api/v1/i18n/doc-lines'));
       },
 
       _dataChanged: function() {
