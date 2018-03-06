@@ -3,7 +3,7 @@
 Copyright (c) 2017 Neo
 -->
 
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -19,7 +19,9 @@ Copyright (c) 2017 Neo
         display: block;
       }
 
+
       .itemContent {
+        min-height: 40px;
         line-height: 20px;
         @apply --layout-horizontal;
         @apply --layout-center;
@@ -38,69 +40,47 @@ Copyright (c) 2017 Neo
 
       .itemContentQty {
         width: 30px;
-        padding-right: 10px;
-        text-align: right;
-        /*border-right: 1px solid #BDBDBD;*/
-        font-size: 14px;
-      }
-
-      .itemContentQty:hover {
-        transform: scale(1.2);
-        color: green
-      }
-
-      .itemContentFormat{
-        width: 70px;
-        padding-left: 10px;
-        /*padding-right: 10px;*/
-        /*border-right: 1px solid #BDBDBD;*/
-        font-size: 12px;
-        color: #9E9E9E;
-        font-style: italic;
+        text-align: center;
       }
 
       .itemContentText{
         @apply --layout-flex;
+        padding-left: 10px;
+      }
+
+      .itemContentFormat{
+        font-size: 0.8em;
+        
       }
 
       .itemContentName {
-        padding-left: 10px;
-        /*border-right: 1px solid #BDBDBD;*/
       }
 
       .itemContentObs {
         font-size: 0.8em;
-        padding-left: 5px;
-        border-right: 1px solid #BDBDBD;
+        color: #9E9E9E;
+        font-style: italic;
       }
 
       .itemContentPrice {
         width: 70px;
-        text-align: right;
-      }
-
-      .itemContentGrossAmount {
-        width: 50px;
         padding-right: 5px;
         text-align: right;
-        border-right: 1px solid #BDBDBD;
       }
 
-      .itemContentActions {
-        width: 40px;
-      }
     </style>
 
     <div class="itemContent">
       <div class="itemContentQty">[[item.format.qty]]</div>
-      <!--<div class="itemContentFormat">[[item.format.name]]</div>-->
       <div class="itemContentText">
         <div class="itemContentName">[[item.product.name]]</div>
         <div class="itemContentFormat">[[item.format.name]]</div>
         <div class="itemContentObs">[[item.obs]]</div>
       </div>
       <div class="itemContentPrice">[[_formatPrice(item.grossAmount)]]</div>
-      <div class="itemContentActions"><paper-icon-button icon="more-vert" on-tap="_showActions"></paper-icon-button></div>
+      <template is="dom-if" if="{{lineActionsEnabled}}">
+        <div class="itemContentActions"><paper-icon-button icon="more-vert" on-tap="_showActions"></paper-icon-button></div>
+      </template>
     </div>
   </template>
 
@@ -115,6 +95,10 @@ Copyright (c) 2017 Neo
           item: {
             type: Object,
             value: {}
+          },
+          lineActionsEnabled: {
+            type: Boolean,
+            value: false
           }
         }
       }

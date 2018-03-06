@@ -3,12 +3,13 @@
 Copyright (c) 2017 Neo
 -->
 
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../iron-list/iron-list.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../neon-animation/web-animations.html">
 
 <link rel="import" href="neocloud-doc-lines-item.html">
@@ -21,6 +22,11 @@ Copyright (c) 2017 Neo
         height: 100%;
         display: flex;
         flex-direction: column;
+      }
+
+      paper-card{
+        padding: 5px;
+        height: 100%;
       }
 
       iron-list {
@@ -57,16 +63,29 @@ Copyright (c) 2017 Neo
         user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
       }
+      
+      #divDocLines{
+        height: 100%;
+        width:100%;
+        color: black;
+        overflow: auto;
+      }
+      
     </style>
 
-    <template is="dom-repeat" items="{{lines}}" rendered-item-count="{{renderedCount}}">
-      <neocloud-doc-lines-item
-              item="{{item}}"
-              on-actions="_showActions"></neocloud-doc-lines-item>
-    </template>
-    <template is="dom-if" if="{{!renderedCount}}">
-      <p class="noItems">{{localize('DOCS-LINES_NO_ITEMS')}}</p>
-    </template>
+    <paper-card>
+      <div id="divDocLines">
+        <template is="dom-repeat" items="{{lines}}" rendered-item-count="{{renderedCount}}">
+          <neocloud-doc-lines-item
+                  item="{{item}}"
+                  line-actions-enabled="[[lineActionsEnabled]]"
+                  on-actions="_showActions"></neocloud-doc-lines-item>
+        </template>
+        <template is="dom-if" if="{{!renderedCount}}">
+          <p class="noItems">{{localize('DOCS-LINES_NO_ITEMS')}}</p>
+        </template>
+      </div>
+    </paper-card>
 
     <paper-dialog id="actions" no-overlap _horizontal-align="left" vertical-align="top"  _entry-animation="scale-up-animation">
       <div class="actionsButtons">
@@ -89,9 +108,10 @@ Copyright (c) 2017 Neo
           language: String,
           data: {
             type: Object,
-            value: [],
+            value: {},
             observer: '_dataChanged'
           },
+          lineActionsEnabled: Boolean,
           lines: {
             type: Array,
             value: []
@@ -115,6 +135,7 @@ Copyright (c) 2017 Neo
       }
 
       _dataChanged() {
+        if (!this.data) return;
         this.set('lines', []);
         if (this.data.length > 0) {
           this.set('lines', this.data);

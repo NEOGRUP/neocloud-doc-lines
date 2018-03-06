@@ -3,7 +3,7 @@
 @license
 Copyright (c) 2017 Neo
 -->
-<html lang="en">
+<html lang="es">
 <head>
   <title>neocloud-doc-lines demo</title>
   <meta charset="utf-8">
@@ -15,73 +15,42 @@ Copyright (c) 2017 Neo
   <link rel="import" href="../../polymer/polymer-element.html">
   <link rel="import" href="../../iron-ajax/iron-ajax.html">
 
-  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-
-  <link rel="import" href="../neocloud-doc-lines.html">
-
-  <custom-style><style is="custom-style" include="demo-pages-shared-styles">
-    .centered {
-      min-width: 500px;
-    }
-
-    demo-snippet {
-      --demo-snippet-code: {
-        max-height: 250px;
-      }
-    }
-      
-  </style></custom-style>
-
+  <link rel="import" href="../neocloud-doc.html">
 </head>
-<body unresolved class="centered">
+<body unresolved>
 <dom-module id="neocloud-doc-lines-demo">
+  
   <template>
+    <style>
+      .container{
+        @apply --layout-vertical;
+        position: absolute;
+        height: calc(100% - 10px); /* padding of container */
+        width: calc(100% - 10px); /* padding of container */
+      }
+    </style>
     <iron-ajax
             auto
-            id="getDocLines"
-            url="data/lines.json"
+            id="getDoc"
+            url="data/doc.json"
             method="get"
             handle-as="json"
-            last-response="{{dataDocLines}}">
+            last-response="{{dataDoc}}">
     </iron-ajax>
-
-    <iron-ajax
-            auto
-            id="getDocNoLines"
-            url="data/noLines.json"
-            method="get"
-            handle-as="json"
-            last-response="{{dataDocNoLines}}">
-    </iron-ajax>
-    
-    
-    <h2>Con acciones</h2>
-    <demo-snippet>
       
-      <div class="container">
-        <neocloud-doc-lines
-                data="[[dataDocLines.data]]"
-                language="es"
-                on-line-inc="_lineInc"
-                on-line-dec="_lineDec"
-                on-line-del="_lineDel">
-        </neocloud-doc-lines>
-      </div>
-    </demo-snippet>
+    <div class="container">
+      <neocloud-doc
+              data="[[dataDoc]]"
+              show-doc-lines
+              show-doc-fiscal
+              line-actions-enabled
+              language="es"
+              on-line-inc="_lineInc"
+              on-line-dec="_lineDec"
+              on-line-del="_lineDel">
+      </neocloud-doc>
+    </div>
 
-    <h2>Sin lineas</h2>
-    <demo-snippet>
-      <div class="container">
-        <neocloud-doc-lines
-                data="[[dataDocNoLines.data]]"
-                language="es"
-                on-line-inc="_lineInc"
-                on-line-dec="_lineDec"
-                on-line-del="_lineDel">
-        </neocloud-doc-lines>
-      </div>
-    </demo-snippet>
   
   </template>
   <script>

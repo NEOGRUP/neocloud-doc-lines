@@ -1,0 +1,160 @@
+{
+	"apiVersion": "",
+	"data": {
+		"id": "5a98341d15b03f27e23e93b6",
+		"version": "0.1",
+		"type": "order",
+		"date": "20180301",
+		"deliveryDate": "20180301",
+		"shopId": "588b35ed15b03f610afbadf9",
+		"shopName": "Sevilla Moda",
+		"productTree": "59b2ad3015b03f2c3ae54a7c",
+		"status": "opened",
+		"comments": {
+			"public": "",
+			"private": ""
+		},
+		"sysData": {
+			"created": "2018-03-01T17:10:53.403Z",
+			"createdBy": "edgar.piera@neogrup.com",
+			"edited": "2018-03-01T17:11:00.201Z",
+			"editedBy": "edgar.piera@neogrup.com",
+			"editing": "2018-03-01T17:11:00.201Z",
+			"editingBy": "edgar.piera@neogrup.com"
+		},
+		"supplier": {
+			"id": "59b94bc115b03f43dac07d6e",
+			"name": "BURELARTE,S.L",
+			"fiscalAddress": {
+				"detail": " , ,",
+				"city": "",
+				"postalCode": "",
+				"state": "",
+				"country": ""
+			}
+		},
+		"fiscal": {
+			"totals": {
+				"grossAmount": 44.39999999999999,
+				"netAmount": 44.39999999999999
+			}
+		},
+		"lines": [{
+			"id": 1,
+			"product": {
+				"id": "R00174",
+				"name": "Amstel",
+				"price": 1.2,
+				"originalPrice": 0
+			},
+			"qty": 12,
+			"format": {
+				"code": "R11",
+				"name": "Cajas por unidades",
+				"factor": 6,
+				"qty": 2
+			},
+			"grossAmount": 14.399999999999999,
+			"netAmount": 14.399999999999999,
+			"status": ""
+		},
+		{
+			"id": 2,
+			"product": {
+				"id": "R00175",
+				"name": "Heineken",
+				"price": 1.2,
+				"originalPrice": 0
+			},
+			"qty": 6,
+			"format": {
+				"code": "R11",
+				"name": "Cajas por unidades",
+				"factor": 6,
+				"qty": 1
+			},
+			"grossAmount": 7.199999999999999,
+			"netAmount": 7.199999999999999,
+			"status": ""
+		},
+		{
+			"id": 3,
+			"product": {
+				"id": "R00176",
+				"name": "Mahou",
+				"price": 1.2,
+				"originalPrice": 0
+			},
+			"qty": 1,
+			"format": {
+				"code": "",
+				"name": "",
+				"factor": 1,
+				"qty": 1
+			},
+			"grossAmount": 1.2,
+			"netAmount": 1.2,
+			"status": ""
+		},
+		{
+			"id": 4,
+			"product": {
+				"id": "R00175",
+				"name": "Heineken",
+				"price": 1.2,
+				"originalPrice": 0
+			},
+			"qty": 18,
+			"format": {
+				"code": "R11",
+				"name": "Cajas por unidades",
+				"factor": 6,
+				"qty": 3
+			},
+			"grossAmount": 21.599999999999998,
+			"netAmount": 21.599999999999998,
+			"status": ""
+    },
+    {
+			"id": 5,
+			"product": {
+				"id": "R00175",
+				"name": "Heineken",
+				"price": 1.2,
+				"originalPrice": 0
+			},
+			"qty": 18,
+			"format": {
+				"code": "R11",
+				"name": "Cajas por unidades",
+				"factor": 6,
+				"qty": 100
+      },
+      "obs": "con hielo",
+			"grossAmount": 21.599999999999998,
+			"netAmount": 21.599999999999998,
+			"status": ""
+    },
+    {
+			"id": 6,
+			"product": {
+				"id": "R00175",
+				"name": "Heineken",
+				"price": 1.2,
+				"originalPrice": 0
+			},
+			"qty": 18,
+			"format": {
+				"code": "",
+				"name": "",
+				"factor": 1,
+				"qty": 18
+      },
+      "obs": "con hielo",
+			"grossAmount": 21.599999999999998,
+			"netAmount": 21.599999999999998,
+			"status": ""
+		}]
+	},
+	"error": null
+}

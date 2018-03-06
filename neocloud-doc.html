@@ -1,0 +1,61 @@
+<!--
+@license
+Copyright (c) 2017 Neo
+-->
+
+<link rel="import" href="../polymer/polymer-element.html">
+
+<link rel="import" href="neocloud-doc-lines.html">
+<link rel="import" href="neocloud-doc-fiscal.html">
+
+<dom-module id="neocloud-doc">
+  <template>
+    <style>
+      :host{
+        @apply --layout-vertical;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    
+    <template is="dom-if" if="{{showDocLines}}">
+      <neocloud-doc-lines
+          data="[[data.data.lines]]"
+          line-actions-enabled="[[lineActionsEnabled]]"
+          language="es">
+      </neocloud-doc-lines>
+    </template>
+    
+    <template is="dom-if" if="{{showDocFiscal}}">
+        <neocloud-doc-fiscal
+          data="[[data.data.fiscal]]"
+          language="es">
+        </neocloud-doc-fiscal>
+    </template>
+
+  </template>
+
+  <script>
+    class NeocloudDoc extends Polymer.Element {
+      static get is() {
+        return 'neocloud-doc';
+      }
+      static get properties() {
+        return {
+          language: String,
+          data: Object,
+          showDocLines: {
+            type: Boolean,
+            value: false
+          },
+          showDocFiscal: {
+            type: Boolean,
+            value: false
+          },
+          lineActionsEnabled: Boolean 
+        }
+      }
+    }
+    window.customElements.define(NeocloudDoc.is, NeocloudDoc);
+  </script>
+</dom-module>

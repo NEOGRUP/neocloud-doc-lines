@@ -17,7 +17,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "DocLines",
-            "url": "http://localhost:8081/components/neocloud-doc-lines/demo/index1.html",
+            "url": "http://localhost:8081/components/neocloud-doc-lines/demo/",
             "runtimeArgs": [
               "--incognito"
           ],
