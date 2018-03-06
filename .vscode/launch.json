@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Polymer",
+            "port": 9229,
+            "protocol": "inspector",
+            "runtimeExecutable": "polymer",
+            "runtimeArgs": [
+                "serve"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "DocLines",
+            "url": "http://localhost:8081/components/neocloud-doc-lines/demo/index1.html",
+            "runtimeArgs": [
+              "--incognito"
+          ],
+            "webRoot": "${workspaceRoot}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Full-stack",
+            "configurations": [
+                "Polymer",
+                "DocLines"
+            ]
+        }
+    ]
+}

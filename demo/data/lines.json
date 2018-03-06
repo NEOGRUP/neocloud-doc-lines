@@ -1,67 +1,80 @@
 {
   "apiVersion": "",
-  "data": [
-    {
-      "idLine": 1,
-      "product": {
-        "id": 2,
-        "price": 2.0,
-        "name": "Coca cola"
-      },
-      "qty": 1,
-      "grossAmount": 2.0,
-      "actions": {
-        "addQty": true,
-        "removeQty": true,
-        "delete": true
-      },
-      "obs": "prueba"
+  "data": [{
+    "id": 1,
+    "product": {
+      "id": "R00174",
+      "name": "Amstel",
+      "price": 1.2,
+      "originalPrice": 0
     },
-    {
-      "idLine": 2,
-      "product": {
-        "id": 11,
-        "price": 1.6,
-        "name": "Fanta limón"
-      },
-      "qty": 2,
-      "grossAmount": 3.2,
-      "actions": {
-        "addQty": true,
-        "removeQty": true,
-        "delete": true
-      }
+    "qty": 12,
+    "format": {
+      "code": "R11",
+      "name": "Cajas por unidades",
+      "factor": 6,
+      "qty": 2
     },
-    {
-      "idLine": 3,
-      "product": {
-        "id": 12,
-        "price": 1.6,
-        "name": "Fanta naranja de prueba para ver si cabe de largo"
-      },
-      "qty": 1,
-      "grossAmount": 1.6,
-      "actions": {
-        "addQty": true,
-        "removeQty": true,
-        "delete": true
-      }
+    "grossAmount": 14.399999999999999,
+    "netAmount": 14.399999999999999,
+    "status": ""
+  },
+  {
+    "id": 2,
+    "product": {
+      "id": "R00175",
+      "name": "Heineken",
+      "price": 1.2,
+      "originalPrice": 0
     },
-    {
-      "idLine": 3,
-      "product": {
-        "id": 14,
-        "price": 0.9,
-        "name": "Café solo"
-      },
-      "qty": 1,
-      "grossAmount": 1.6,
-      "actions": {
-        "addQty": true,
-        "removeQty": true,
-        "delete": true
-      }
-    }
-  ],
+    "qty": 6,
+    "format": {
+      "code": "R11",
+      "name": "Cajas por unidades",
+      "factor": 6,
+      "qty": 1
+    },
+    "grossAmount": 7.199999999999999,
+    "netAmount": 7.199999999999999,
+    "status": ""
+  },
+  {
+    "id": 3,
+    "product": {
+      "id": "R00176",
+      "name": "Mahou",
+      "price": 1.2,
+      "originalPrice": 0
+    },
+    "qty": 1,
+    "format": {
+      "code": "",
+      "name": "",
+      "factor": 1,
+      "qty": 1
+    },
+    "grossAmount": 1.2,
+    "netAmount": 1.2,
+    "status": ""
+  },
+  {
+    "id": 4,
+    "product": {
+      "id": "R00175",
+      "name": "Heineken",
+      "price": 1.2,
+      "originalPrice": 0
+    },
+    "qty": 18,
+    "format": {
+      "code": "R11",
+      "name": "Cajas por unidades",
+      "factor": 6,
+      "qty": 3
+    },
+    "grossAmount": 21.599999999999998,
+    "netAmount": 21.599999999999998,
+    "status": ""
+  }],
   "error": null
 }

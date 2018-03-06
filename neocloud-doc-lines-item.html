@@ -21,8 +21,8 @@ Copyright (c) 2017 Neo
 
       .itemContent {
         line-height: 20px;
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
+        @apply --layout-horizontal;
+        @apply --layout-center;
         border-color: #BDBDBD;
         border-style: solid;
         border-width: 0 1px 1px 1px;
@@ -60,7 +60,7 @@ Copyright (c) 2017 Neo
       }
 
       .itemContentText{
-        @apply(--layout-flex);
+        @apply --layout-flex;
       }
 
       .itemContentName {
@@ -105,30 +105,26 @@ Copyright (c) 2017 Neo
   </template>
 
   <script>
-    Polymer({
-      is: 'neocloud-doc-lines-item',
-
-      behaviors: [
-        Polymer.AppLocalizeBehavior,
-        neocloudDocLinesBehavior
-      ],
-
-      properties: {
-        language: String,
-        item: {
-          type: Object,
-          value: {}
+    class NeocloudDocLinesItem extends Polymer.mixinBehaviors([Polymer.AppLocalizeBehavior,neocloudDocLinesBehavior], Polymer.Element) {
+      static get is() {
+        return 'neocloud-doc-lines-item';
+      }
+      static get properties() {
+        return {
+          language: String,
+          item: {
+            type: Object,
+            value: {}
+          }
         }
-      },
-
-      ready: function() {
-      },
-
-      _showActions: function(e){
-        this.fire('actions',e.target);
       }
 
-    });
+      _showActions(e){
+        this.dispatchEvent(new CustomEvent('actions', { detail: e.target, bubbles: true, composed: true }));
+      }
+
+    }
+    window.customElements.define(NeocloudDocLinesItem.is, NeocloudDocLinesItem);
 
 
   </script>
