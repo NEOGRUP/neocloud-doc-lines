@@ -13,9 +13,9 @@
       }
     },
     _validate: function(){
-      var inputs = Polymer.dom(this.root).querySelectorAll("paper-input,paper-textarea");
-      var firstInvalid = false;
-      var i;
+      let inputs = Polymer.dom(this.root).querySelectorAll("paper-input,paper-textarea");
+      let firstInvalid = false;
+      let i;
       for (i = 0; i < inputs.length; i++) {
         inputs[i].validate();
       }
@@ -43,18 +43,18 @@
     },
 
     _formatDate: function(date, language, format) {
-      var format = (format)? format: "L";
+      let lFormat = (format) ? format: "L";
 
-      var dateText = "";
+      let dateText = "";
       if (date) {
-        dateText = moment(date).format(format);
+        dateText = moment(date).format(lFormat);
       }
       return dateText;
     },
 
     _formatDateFromNow: function(dateTime, language) {
 
-      var dateTimeText = "";
+      let dateTimeText = "";
       if (dateTime) {
         if (language == "es"){
           dateTimeText= moment(dateTime).calendar(null, {
@@ -86,21 +86,12 @@
             sameElse : 'L'
           });
         }
-
-//        dateTimeText = moment(dateTime).calendar().split(" ")[0];
-//        dateTimeText = moment(dateTime).calendar();
-//        dateTimeText = moment(dateTime).format('dddd, ll')
       }
       return dateTimeText;
     },
 
     _formatDateTimeFromNow: function(dateTime, language) {
-//      console.log(moment('2017-03-17T11:27:01Z').format("DD-MM-YYYY HH:mm"));
-//      console.log(moment('2017-03-17T11:27:01+02:00').format("DD-MM-YYYY HH:mm"));
-//      console.log(moment('2017-03-17T11:27:01.343+02:00').format("DD-MM-YYYY HH:mm"));
-//      dateTime = moment('2017-03-17T11:27:01Z');
-
-      var dateTimeText = "";
+      let dateTimeText = "";
       if (dateTime) {
         dateTimeText = moment(dateTime).calendar();
       }
@@ -108,7 +99,7 @@
     },
 
     _formatTime: function(time) {
-      var timeText = "";
+      let timeText = "";
       if (time) {
         timeText = moment(time).format("HH:mm[h]");
       }
@@ -116,13 +107,13 @@
     },
 
     _formatPrice: function(price) {
-      var priceText = ""
+      let priceText = ""
       priceText = accounting.formatMoney(price, "€", 2, ".", ",","%v %s");
       return priceText;
     },
 
     _formatNumber: function(number, decimals) {
-      var numberText = "";
+      let numberText = "";
       numberText = accounting.formatNumber(number,decimals, ".", ",")
       return numberText;
     }

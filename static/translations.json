@@ -1,0 +1,14 @@
+{
+  "en":{
+    "PRODUCTS_GRID_PAGE": "Page",
+    "PRODUCTS_GRID_BREADCRUMB_ALL": "All"
+  },
+  "es": {
+    "PRODUCTS_GRID_PAGE": "Página",
+    "PRODUCTS_GRID_BREADCRUMB_ALL": "Todos"
+  },
+  "ca":{
+    "PRODUCTS_GRID_PAGE": "Pàgina",
+    "PRODUCTS_GRID_BREADCRUMB_ALL": "Tots"
+  }
+}

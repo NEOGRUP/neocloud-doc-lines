@@ -3,13 +3,14 @@
 Copyright (c) 2017 Neo
 -->
 
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../iron-list/iron-list.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-dialog/paper-dialog.html">
-<link rel="import" href="../neon-animation/neon-animation.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../neon-animation/web-animations.html">
 
 <link rel="import" href="neocloud-doc-lines-item.html">
 
@@ -23,6 +24,11 @@ Copyright (c) 2017 Neo
         flex-direction: column;
       }
 
+      paper-card{
+        padding: 5px;
+        height: 100%;
+      }
+
       iron-list {
         height: 100%;
         width: 100%;
@@ -34,8 +40,8 @@ Copyright (c) 2017 Neo
       }
 
       .actionsButtons {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
+        @apply --layout-horizontal;
+        @apply --layout-center;
       }
 
       paper-dialog > div > paper-button > iron-icon{
@@ -57,16 +63,29 @@ Copyright (c) 2017 Neo
         user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
       }
+      
+      #divDocLines{
+        height: 100%;
+        width:100%;
+        color: black;
+        overflow: auto;
+      }
+      
     </style>
 
-    <template is="dom-repeat" items="{{lines}}" rendered-item-count="{{renderedCount}}">
-      <neocloud-doc-lines-item
-              item="{{item}}"
-              on-actions="_showActions"></neocloud-doc-lines-item>
-    </template>
-    <template is="dom-if" if="{{!renderedCount}}">
-      <p class="noItems">{{localize('DOCS-LINES_NO_ITEMS')}}</p>
-    </template>
+    <paper-card>
+      <div id="divDocLines">
+        <template is="dom-repeat" items="{{lines}}" rendered-item-count="{{renderedCount}}">
+          <neocloud-doc-lines-item
+                  item="{{item}}"
+                  line-actions-enabled="[[lineActionsEnabled]]"
+                  on-actions="_showActions"></neocloud-doc-lines-item>
+        </template>
+        <template is="dom-if" if="{{!renderedCount}}">
+          <p class="noItems">{{localize('DOCS-LINES_NO_ITEMS')}}</p>
+        </template>
+      </div>
+    </paper-card>
 
     <paper-dialog id="actions" no-overlap _horizontal-align="left" vertical-align="top"  _entry-animation="scale-up-animation">
       <div class="actionsButtons">
@@ -80,95 +99,88 @@ Copyright (c) 2017 Neo
   </template>
 
   <script>
-    Polymer({
-      is: 'neocloud-doc-lines',
-
-      behaviors: [
-        Polymer.AppLocalizeBehavior
-      ],
-
-      properties: {
-        language: String,
-        data: {
-          type: Object,
-          value: [],
-          observer: '_dataChanged'
-        },
-        lines: {
-          type: Array,
-          value: []
-        },
-        item: {
-          type: Object,
-          notify: true,
-          value: {}
-        },
-        _currentLine: {
-          type: Object,
-          value: {}
+    class NeocloudDocLines extends Polymer.mixinBehaviors([Polymer.AppLocalizeBehavior], Polymer.Element) {
+      static get is() {
+        return 'neocloud-doc-lines';
+      }
+      static get properties() {
+        return {
+          language: String,
+          data: {
+            type: Object,
+            value: {},
+            observer: '_dataChanged'
+          },
+          lineActionsEnabled: Boolean,
+          lines: {
+            type: Array,
+            value: []
+          },
+          item: {
+            type: Object,
+            notify: true,
+            value: {}
+          },
+          _currentLine: {
+            type: Object,
+            value: {}
+          }
         }
-      },
-
-      ready: function() {
+      }
+        
+      connectedCallback() {
+        super.connectedCallback();
         this.useKeyIfMissing = true;
         this.loadResources(this.resolveUrl('/api/v1/i18n/doc-lines'));
-      },
+      }
 
-      _dataChanged: function() {
+      _dataChanged() {
+        if (!this.data) return;
         this.set('lines', []);
         if (this.data.length > 0) {
           this.set('lines', this.data);
         }
         Polymer.dom.flush();
-      },
+      }
 
-      _showActions: function(element){
+      _showActions(element){
         this._currentLine = element.target.item;
-        this.$$('#actions').positionTarget = element.detail;
-        this.$$('#actions').open();
-      },
+        this.shadowRoot.querySelector('#actions').positionTarget = element.detail;
+        this.shadowRoot.querySelector('#actions').open();
+      }
 
-
-
-      _addQty: function(){
-        this.fire('line-inc', this._currentLine);
+      _addQty(){
+        this.dispatchEvent(new CustomEvent('line-inc', { detail: this._currentLine, bubbles: true, composed: true }));
         this._currentLine.format.qty++;
-      },
+      }
 
-      _removeQty: function(){
-        this.fire('line-dec', this._currentLine);
+      _removeQty(){
+        this.dispatchEvent(new CustomEvent('line-dec', { detail: this._currentLine, bubbles: true, composed: true }));
         this._currentLine.format.qty--;
 
         if (this._currentLine.format.qty == 0) {
-          this.$$('#actions').close();
+          this.shadowRoot.querySelector('#actions').close();
         }
-      },
-
-      _selectQty: function(){
-        this.fire('openSelectQty', this._currentLine);
-
-      },
-
-      _delete: function(){
-        this.fire('line-del', this._currentLine);
-        this.$$('#actions').close();
-      },
-
-      setQty: function(qty){
-        this.$$('#actions').close();
-        this._currentLine.format.qty = qty;
-        this.fire('line-set', this._currentLine);
-      },
-
-      updateQty: function(item){
-        console.log(item);
-        //sin id = nueva línea
-        //solo un id, línea eliminada
-        //resto = cantidad cambaida
-        //console.log(lines);
       }
-    });
 
+      _selectQty(){
+        this.dispatchEvent(new CustomEvent('openSelectQty', { detail: this._currentLine, bubbles: true, composed: true }));
+      }
 
+      _delete(){
+        this.dispatchEvent(new CustomEvent('line-del', { detail: this._currentLine, bubbles: true, composed: true }));
+        this.shadowRoot.querySelector('#actions').close();
+      }
+
+      setQty(qty){
+        this.shadowRoot.querySelector('#actions').close();
+        this._currentLine.format.qty = qty;
+        this.dispatchEvent(new CustomEvent('line-set', { detail: this._currentLine, bubbles: true, composed: true }));
+      }
+
+      updateQty(item){
+      }
+    }
+    window.customElements.define(NeocloudDocLines.is, NeocloudDocLines);
   </script>
 </dom-module>
