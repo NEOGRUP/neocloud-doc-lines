@@ -1,0 +1,93 @@
+<!--
+@license
+Copyright (c) 2017 Neo
+-->
+
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<dom-module id="neocloud-doc-footer">
+  <template>
+    <style>
+      :host{
+        display: block;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+      }
+      
+      paper-card{
+        width: 100%;
+        margin: 10px 0 0 0;
+        padding: 5px;
+        background-color: #FFCC80;
+      }
+
+      .fiscal {
+        @apply --layout-vertical;
+        @apply --layout-center;
+      }
+
+      .total-net-amount{
+        @apply --layout-flex;
+        text-align: right;
+        font-size: 1.2em;
+        font-weight: bolder;
+      }
+
+      .discount{
+        @apply --layout-flex;
+        text-align: right;
+      }
+    </style>
+
+    <paper-card>
+      <div class="footer">
+        <template is="dom-repeat" items="{{data.discounts}}">
+          <div class="discount">[[item.name]]: -[[_formatPrice(item.discountAmount)]]</div>
+        </template>
+        <div class="total-net-amount">Total: [[_formatPrice(totalNetAmount)]]</div>
+      </div>
+    </paper-card>
+  </template>
+
+  <script>
+    class NeocloudDocFooter extends Polymer.mixinBehaviors([neocloudDocLinesBehavior], Polymer.Element) {
+      static get is() {
+        return 'neocloud-doc-footer';
+      }
+      static get properties() {
+        return {
+          language: String,
+          data: {
+            type: Object,
+            value: {},
+            observer: '_dataChanged'
+          },
+          totalNetAmount: {
+            type: Number,
+            value: 0
+          },
+          discount: {
+            type: Number,
+            value: 0
+          }
+        }
+      }
+
+      _dataChanged() {
+        if (!this.data) return;
+        if (this.data.fiscal) {
+          this.totalNetAmount = this.data.fiscal.totals.netAmount; 
+        }
+        Polymer.dom.flush();
+      }
+    }
+    window.customElements.define(NeocloudDocFooter.is, NeocloudDocFooter);
+  </script>
+</dom-module>
