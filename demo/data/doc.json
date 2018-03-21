@@ -1,160 +1,149 @@
 {
-	"apiVersion": "",
-	"data": {
-		"id": "5a98341d15b03f27e23e93b6",
-		"version": "0.1",
-		"type": "order",
-		"date": "20180301",
-		"deliveryDate": "20180301",
-		"shopId": "588b35ed15b03f610afbadf9",
-		"shopName": "Sevilla Moda",
-		"productTree": "59b2ad3015b03f2c3ae54a7c",
-		"status": "opened",
-		"comments": {
-			"public": "",
-			"private": ""
-		},
-		"sysData": {
-			"created": "2018-03-01T17:10:53.403Z",
-			"createdBy": "edgar.piera@neogrup.com",
-			"edited": "2018-03-01T17:11:00.201Z",
-			"editedBy": "edgar.piera@neogrup.com",
-			"editing": "2018-03-01T17:11:00.201Z",
-			"editingBy": "edgar.piera@neogrup.com"
-		},
-		"supplier": {
-			"id": "59b94bc115b03f43dac07d6e",
-			"name": "BURELARTE,S.L",
-			"fiscalAddress": {
-				"detail": " , ,",
-				"city": "",
-				"postalCode": "",
-				"state": "",
-				"country": ""
-			}
-		},
-		"fiscal": {
-			"totals": {
-				"grossAmount": 44.39999999999999,
-				"netAmount": 44.39999999999999
-			}
-		},
-		"lines": [{
-			"id": 1,
-			"product": {
-				"id": "R00174",
-				"name": "Amstel",
-				"price": 1.2,
-				"originalPrice": 0
-			},
-			"qty": 12,
-			"format": {
-				"code": "R11",
-				"name": "Cajas por unidades",
-				"factor": 6,
-				"qty": 2
-			},
-			"grossAmount": 14.399999999999999,
-			"netAmount": 14.399999999999999,
-			"status": ""
-		},
-		{
-			"id": 2,
-			"product": {
-				"id": "R00175",
-				"name": "Heineken",
-				"price": 1.2,
-				"originalPrice": 0
-			},
-			"qty": 6,
-			"format": {
-				"code": "R11",
-				"name": "Cajas por unidades",
-				"factor": 6,
-				"qty": 1
-			},
-			"grossAmount": 7.199999999999999,
-			"netAmount": 7.199999999999999,
-			"status": ""
-		},
-		{
-			"id": 3,
-			"product": {
-				"id": "R00176",
-				"name": "Mahou",
-				"price": 1.2,
-				"originalPrice": 0
-			},
-			"qty": 1,
-			"format": {
-				"code": "",
-				"name": "",
-				"factor": 1,
-				"qty": 1
-			},
-			"grossAmount": 1.2,
-			"netAmount": 1.2,
-			"status": ""
-		},
-		{
-			"id": 4,
-			"product": {
-				"id": "R00175",
-				"name": "Heineken",
-				"price": 1.2,
-				"originalPrice": 0
-			},
-			"qty": 18,
-			"format": {
-				"code": "R11",
-				"name": "Cajas por unidades",
-				"factor": 6,
-				"qty": 3
-			},
-			"grossAmount": 21.599999999999998,
-			"netAmount": 21.599999999999998,
-			"status": ""
+    "apiVersion": "1",
+    "systemTime": "2018-03-21T10:29:23.3022111+01:00",
+    "data": {
+        "attendedByName": "EPL",
+        "customer": {
+            "name": "Contado"
+        },
+        "date": "20180321",
+        "discounts": [
+            {
+                "baseAmount": 9.24,
+                "code": "DTVP",
+                "discountAmount": 1.85,
+                "id": "10",
+                "name": "Dto. de pie 20,00%",
+                "rate": 20
+            }
+        ],
+        "fiscal": {
+            "totals": {
+                "grossAmount": 9.24,
+                "netAmount": 7.39
+            }
+        },
+        "lines": [
+            {
+                "format": {
+                    "qty": 2
+                },
+                "grossAmount": 3.98,
+                "id": 1,
+                "netAmount": 3.98,
+                "product": {
+                    "id": "R00001",
+                    "name": "Coca Cola lata",
+                    "price": 1.99
+                }
+            },
+            {
+                "format": {
+                    "qty": 1
+                },
+                "grossAmount": 1.5,
+                "id": 2,
+                "netAmount": 1.5,
+                "packNetAmount": 1.8,
+                "product": {
+                    "id": "R00207",
+                    "name": "Carajillo",
+                    "price": 1.5
+                },
+                "type": "pack"
+            },
+            {
+                "affectPrice": "N",
+                "format": {
+                    "qty": 1
+                },
+                "grossAmount": 0.95,
+                "id": 3,
+                "netAmount": 0.95,
+                "product": {
+                    "id": "R00055",
+                    "name": "Café solo",
+                    "price": 0.95
+                },
+                "type": "packLine"
+            },
+            {
+                "format": {
+                    "qty": 1
+                },
+                "grossAmount": 0.3,
+                "id": 4,
+                "netAmount": 0.3,
+                "printMode": "hidePrice",
+                "product": {
+                    "id": "R00139",
+                    "name": "Chupito whisky J&B",
+                    "price": 0.3
+                },
+                "type": "packLine"
+            },
+            {
+                "format": {
+                    "qty": 1
+                },
+                "grossAmount": 0.95,
+                "id": 5,
+                "netAmount": 0.95,
+                "product": {
+                    "id": "R00006",
+                    "name": "Fanta Limón lata",
+                    "price": 0.95
+                }
+            },
+            {
+                "comments": "Con hielo",
+                "discounts": [
+                    {
+                        "baseAmount": 1.9,
+                        "code": "DL10",
+                        "discountAmount": 0.19,
+                        "id": "7",
+                        "name": "10% dto.línea",
+                        "rate": 10
+                    }
+                ],
+                "format": {
+                    "qty": 2
+                },
+                "grossAmount": 1.9,
+                "id": 6,
+                "netAmount": 1.71,
+                "product": {
+                    "id": "R00005",
+                    "name": "Fanta Naranja lata",
+                    "price": 0.95
+                }
+            },
+            {
+                "format": {
+                    "qty": 1
+                },
+                "grossAmount": 0.8,
+                "id": 8,
+                "netAmount": 0.8,
+                "product": {
+                    "id": "R00066",
+                    "name": "Agua 20cl",
+                    "price": 0.8
+                }
+            }
+        ],
+        "order": "100004",
+        "shop": "R002",
+        "status": "opened",
+        "sysData": {
+            "created": "2018-03-21T10:26:26.000",
+            "createdBy": "47275733S",
+            "edited": "2018-03-21T10:29:23.298",
+            "editedBy": "47275733S"
+        },
+        "type": "ticket",
+        "version": "0.15"
     },
-    {
-			"id": 5,
-			"product": {
-				"id": "R00175",
-				"name": "Heineken",
-				"price": 1.2,
-				"originalPrice": 0
-			},
-			"qty": 18,
-			"format": {
-				"code": "R11",
-				"name": "Cajas por unidades",
-				"factor": 6,
-				"qty": 100
-      },
-      "obs": "con hielo",
-			"grossAmount": 21.599999999999998,
-			"netAmount": 21.599999999999998,
-			"status": ""
-    },
-    {
-			"id": 6,
-			"product": {
-				"id": "R00175",
-				"name": "Heineken",
-				"price": 1.2,
-				"originalPrice": 0
-			},
-			"qty": 18,
-			"format": {
-				"code": "",
-				"name": "",
-				"factor": 1,
-				"qty": 18
-      },
-      "obs": "con hielo",
-			"grossAmount": 21.599999999999998,
-			"netAmount": 21.599999999999998,
-			"status": ""
-		}]
-	},
-	"error": null
+    "error": null
 }

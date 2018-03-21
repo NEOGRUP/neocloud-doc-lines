@@ -14,6 +14,8 @@ Copyright (c) 2017 Neo
 
   <link rel="import" href="../../polymer/polymer-element.html">
   <link rel="import" href="../../iron-ajax/iron-ajax.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 
   <link rel="import" href="../neocloud-doc.html">
 </head>
@@ -23,10 +25,16 @@ Copyright (c) 2017 Neo
   <template>
     <style>
       .container{
-        @apply --layout-vertical;
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
         position: absolute;
         height: calc(100% - 10px); /* padding of container */
         width: calc(100% - 10px); /* padding of container */
+      }
+
+      div{
+        background-color: #eeeeee;
+        height: 50%;
       }
     </style>
     <iron-ajax
@@ -39,16 +47,35 @@ Copyright (c) 2017 Neo
     </iron-ajax>
       
     <div class="container">
-      <neocloud-doc
-              data="[[dataDoc]]"
-              show-doc-lines
-              show-doc-fiscal
-              line-actions-enabled
-              language="es"
-              on-line-inc="_lineInc"
-              on-line-dec="_lineDec"
-              on-line-del="_lineDel">
-      </neocloud-doc>
+      <div>
+        <neocloud-doc
+                data="[[dataDoc]]"
+                show-doc-header
+                show-doc-lines
+                show-doc-footer
+                preview-mode
+                show-canceled-lines="[[showCanceledLines]]"
+                line-actions-enabled="[[lineActionsEnabled]]"
+                on-line-inc="_lineInc"
+                on-line-dec="_lineDec"
+                on-line-del="_lineDel">
+        </neocloud-doc>
+      </div>
+
+      <div>
+          <neocloud-doc
+                  data="[[dataDoc]]"
+                  show-doc-header
+                  show-doc-lines
+                  show-doc-footer
+                  preview-mode
+                  show-canceled-lines="[[showCanceledLines]]"
+                  line-actions-enabled
+                  on-line-inc="_lineInc"
+                  on-line-dec="_lineDec"
+                  on-line-del="_lineDel">
+          </neocloud-doc>
+        </div>
     </div>
 
   

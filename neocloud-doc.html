@@ -5,8 +5,10 @@ Copyright (c) 2017 Neo
 
 <link rel="import" href="../polymer/polymer-element.html">
 
+<link rel="import" href="neocloud-doc-header.html">
 <link rel="import" href="neocloud-doc-lines.html">
-<link rel="import" href="neocloud-doc-fiscal.html">
+<link rel="import" href="neocloud-doc-footer.html">
+
 
 <dom-module id="neocloud-doc">
   <template>
@@ -18,19 +20,31 @@ Copyright (c) 2017 Neo
       }
     </style>
     
+    <template is="dom-if" if="{{showDocHeader}}">
+      <div id="doc-header">
+        <neocloud-doc-header
+          data="[[data.data]]">
+        </neocloud-doc-header>
+      </div>
+    </template>
+
     <template is="dom-if" if="{{showDocLines}}">
-      <neocloud-doc-lines
-          data="[[data.data.lines]]"
-          line-actions-enabled="[[lineActionsEnabled]]"
-          language="es">
-      </neocloud-doc-lines>
+      <div id="doc-lines" style="height: 100%;overflow: auto;">
+        <neocloud-doc-lines
+            data="[[data.data.lines]]"
+            preview-mode="[[previewMode]]"
+            show-canceled-lines="[[showCanceledLines]]"
+            line-actions-enabled="[[lineActionsEnabled]]">
+        </neocloud-doc-lines>
+      </div>
     </template>
     
-    <template is="dom-if" if="{{showDocFiscal}}">
-        <neocloud-doc-fiscal
-          data="[[data.data.fiscal]]"
-          language="es">
-        </neocloud-doc-fiscal>
+    <template is="dom-if" if="{{showDocFooter}}">
+      <div id="doc-footer">
+        <neocloud-doc-footer
+          data="[[data.data]]">
+        </neocloud-doc-footer>
+      </div>
     </template>
 
   </template>
@@ -44,16 +58,35 @@ Copyright (c) 2017 Neo
         return {
           language: String,
           data: Object,
+          showDocHeader: {
+            type: Boolean,
+            value: false
+          },
           showDocLines: {
             type: Boolean,
             value: false
           },
-          showDocFiscal: {
+          showDocFooter: {
             type: Boolean,
             value: false
           },
-          lineActionsEnabled: Boolean 
+          lineActionsEnabled: {
+            type: Boolean,
+            value: false
+          },
+          showCanceledLines: {
+            type: Boolean,
+            value: false
+          },
+          previewMode: {
+            type: Boolean,
+            value: false
+          }
         }
+      }
+
+      scrollLinesToBottom(){
+        this.shadowRoot.querySelector('neocloud-doc-lines')._scrollLinesToBottom();
       }
     }
     window.customElements.define(NeocloudDoc.is, NeocloudDoc);
