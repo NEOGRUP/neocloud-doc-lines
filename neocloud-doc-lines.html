@@ -185,7 +185,7 @@ Copyright (c) 2017 Neo
         this.dispatchEvent(new CustomEvent('line-dec', { detail: this._currentLine, bubbles: true, composed: true }));
         this._currentLine.format.qty--;
 
-        if (this._currentLine.format.qty == 0) {
+        if (this._currentLine.format.qty <= 0) {
           this.shadowRoot.querySelector('#actions').close();
         }
       }
