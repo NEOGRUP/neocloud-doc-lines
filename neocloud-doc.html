@@ -4,6 +4,7 @@ Copyright (c) 2017 Neo
 -->
 
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
 
 <link rel="import" href="neocloud-doc-header.html">
 <link rel="import" href="neocloud-doc-lines.html">
@@ -42,7 +43,8 @@ Copyright (c) 2017 Neo
     <template is="dom-if" if="{{showDocFooter}}">
       <div id="doc-footer">
         <neocloud-doc-footer
-          data="[[data.data]]">
+          data="[[data.data]]"
+          show-change-in-dialog="[[showChangeInDialog]]">
         </neocloud-doc-footer>
       </div>
     </template>
@@ -75,6 +77,10 @@ Copyright (c) 2017 Neo
             value: false
           },
           showCanceledLines: {
+            type: Boolean,
+            value: false
+          },
+          showChangeInDialog: {
             type: Boolean,
             value: false
           },

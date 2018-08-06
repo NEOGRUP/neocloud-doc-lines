@@ -4,8 +4,13 @@ Copyright (c) 2017 Neo
 -->
 
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+
+<link rel="import" href="neocloud-doc-lines-behaviour.html">
 
 <dom-module id="neocloud-doc-footer">
   <template>
@@ -28,33 +33,74 @@ Copyright (c) 2017 Neo
         background-color: #FFCC80;
       }
 
+      .line{
+        @apply --layout-horizontal;
+      }
+
+      .label{
+      }
+
+      .value{
+        @apply --layout-flex;
+        text-align: right;
+      }
+
       .fiscal {
         @apply --layout-vertical;
         @apply --layout-center;
       }
 
       .total-net-amount{
-        @apply --layout-flex;
-        text-align: right;
         font-size: 1.2em;
         font-weight: bolder;
       }
 
-      .discount{
-        @apply --layout-flex;
-        text-align: right;
+      paper-dialog{
+        width: 300px;
+        background-color: #262b65;
+        color: white;
+        @apply --layout-vertical;
+        @apply --layout-center;
       }
+
+      .message{
+        font-size: 1.8em;
+      }
+
     </style>
 
     <paper-card>
       <div class="footer">
         <template is="dom-repeat" items="{{data.discounts}}">
-          <div class="discount">[[item.name]]: -[[_formatPrice(item.discountAmount)]]</div>
+          <div class="line">
+            <div class="label">[[item.name]]</div>
+            <div class="value">-[[_formatPrice(item.discountAmount)]]</div>
+          </div>
         </template>
-        <div class="total-net-amount">Total: [[_formatPrice(totalNetAmount)]]</div>
+        <div class="line">
+          <div class="label total-net-amount">Importe</div>
+          <div class="value total-net-amount">[[_formatPrice(totalNetAmount)]]</div>
+        </div>
+        <template is="dom-if" if="{{showChange}}">
+          <div class="line">
+            <div class="label">Entregado</div>
+            <div class="value">[[_formatPrice(totalDeliveredAmount)]]</div>
+          </div>
+          <div class="line">
+            <div class="label">Cambio</div>
+            <div class="value">[[_formatPrice(totalChangeAmount)]]</div>
+          </div>
+        </template>
       </div>
     </paper-card>
+
+    <paper-dialog id="showChangeDialog">
+      <div class="content">
+        <p class="message">[[messageDialog]]</p>
+    </paper-dialog>
   </template>
+
+  
 
   <script>
     class NeocloudDocFooter extends Polymer.mixinBehaviors([neocloudDocLinesBehavior], Polymer.Element) {
@@ -73,9 +119,26 @@ Copyright (c) 2017 Neo
             type: Number,
             value: 0
           },
+          totalChangeAmount: {
+            type: Number,
+            value: 0
+          },
+          totalDeliveredAmount: {
+            type: Number,
+            value: 0
+          },
           discount: {
             type: Number,
             value: 0
+          },
+          showChangeInDialog: Boolean,
+          showChange: {
+            type: Object,
+            value: false
+          },
+          messageDialog: {
+            type: String,
+            value: ''
           }
         }
       }
@@ -84,6 +147,23 @@ Copyright (c) 2017 Neo
         if (!this.data) return;
         if (this.data.fiscal) {
           this.totalNetAmount = this.data.fiscal.totals.netAmount; 
+
+          this.totalDeliveredAmount = (this.data.fiscal.totals.deliveredAmount) ? this.data.fiscal.totals.deliveredAmount : 0; 
+          this.totalChangeAmount = (this.data.fiscal.totals.changeAmount) ? this.data.fiscal.totals.changeAmount : 0; 
+
+          if (this.totalDeliveredAmount != 0){
+            this.showChange = true;
+            if (this.showChangeInDialog){
+              this.messageDialog = (this.totalChangeAmount === 0) ? 'Sin cambio' : 'Cambio: ' + this._formatPrice(this.totalChangeAmount);
+              this.$.showChangeDialog.open();
+            }
+            
+          } else {
+            this.showChange = false;
+            this.messageDialog = '';
+            this.$.showChangeDialog.close();
+          }
+          
         }
         Polymer.dom.flush();
       }
